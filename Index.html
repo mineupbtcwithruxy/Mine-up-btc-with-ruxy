@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alamat Pembayaran BEP20 — 0x477e9cefa27d70454d00fe2bf0164360935879e3</title>
+  <meta name="description" content="Alamat pembayaran BEP20 (BSC). Pastikan pengirim memilih jaringan BEP20. Copy alamat atau scan QR untuk membayar." />
+  <style>
+    :root{--bg:#0f1720;--card:#0b1220;--muted:#9aa4b2;--accent:#0ea5a4}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial; background:linear-gradient(180deg,#071226 0%, #071b2a 100%);color:#e6eef6}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:100%;max-width:720px;background:rgba(255,255,255,0.03);border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 8px;font-size:20px}
+    .lead{margin:0 0 14px;color:var(--muted)}
+    .addrbox{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .address{flex:1;background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);font-family:monospace;word-break:break-all}
+    .meta{min-width:140px;text-align:center}
+    .meta .net{font-weight:700}
+    .actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    button{cursor:pointer;border:0;padding:10px 14px;border-radius:8px;font-weight:700}
+    .btn-copy{background:var(--accent);color:#052022}
+    .btn-uri{background:transparent;color:#a6f0ee;border:1px solid rgba(166,240,238,0.12)}
+    .note{margin-top:12px;color:var(--muted);font-size:13px}
+    .warn{margin-top:14px;padding:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,64,64,0.04), rgba(255,183,77,0.02));color:#ffd7d0;border:1px solid rgba(255,64,64,0.05)}
+    footer{margin-top:16px;font-size:13px;color:var(--muted)}
+    code{background:rgba(255,255,255,0.02);padding:2px 6px;border-radius:6px}
+    @media (max-width:520px){.card{padding:14px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <h1>Alamat Pembayaran (BEP20 / BSC)</h1>
+      <p class="lead">Pastikan pengirim menggunakan jaringan <strong>BEP20 (Binance Smart Chain)</strong>. Jika menggunakan jaringan lain (ERC20/TRC20/etc) dana bisa hilang.</p>
+
+      <div class="addrbox">
+        <div class="address" id="addr">0x477e9cefa27d70454d00fe2bf0164360935879e3</div>
+
+        <div class="meta" aria-hidden="true">
+          <div style="margin-bottom:10px">
+            <img id="qr" alt="QR code" src="" style="width:140px;height:140px;border-radius:8px;border:1px solid rgba(255,255,255,0.04)" />
+          </div>
+          <div style="font-size:12px;color:var(--muted)">Scan untuk cepat kirim</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-copy" id="copyBtn">Copy Address</button>
+        <button class="btn-uri" id="openUri">Open in Wallet</button>
+      </div>
+
+      <div class="note">Quick URI (untuk wallet seluler yang mendukung): <code id="uri">ethereum:0x477e9cefa27d70454d00fe2bf0164360935879e3@56</code></div>
+
+      <div class="warn" role="alert">
+        ⚠️ <strong>PENTING:</strong> Hanya gunakan <strong>BEP20 (BSC)</strong>. Jika pengirim berasal dari exchange (Indodax, Tokocrypto, Binance), minta mereka gunakan fitur Withdraw/Send pada aplikasi mereka dan paste alamat di atas.
+      </div>
+
+      <footer>Butuh saya tambahkan instruksi token spesifik / nominal atau buatkan QR PNG? Hubungi kembali.</footer>
+    </div>
+  </div>
+
+  <script>
+    // alamat & URI (ubah jika perlu)
+    const ADDRESS = '0x477e9cefa27d70454d00fe2bf0164360935879e3';
+    const URI = 'ethereum:' + ADDRESS + '@56'; // chainId 56 = BSC
+
+    // set QR (menggunakan Google Chart API)
+    const qrImg = document.getElementById('qr');
+    const qrData = encodeURIComponent(ADDRESS + ' (BEP20)');
+    // ukuran QR 300x300 (ubah chs jika mau)
+    qrImg.src = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(ADDRESS) + '&chld=L|1';
+
+    // copy button
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(ADDRESS);
+        copyBtn.innerText = 'Tersalin ✓';
+        setTimeout(()=>copyBtn.innerText = 'Copy Address', 1800);
+      } catch (err) {
+        alert('Gagal menyalin otomatis. Silakan salin manual:\n' + ADDRESS);
+      }
+    });
+
+    // open URI (membuka wallet jika terdaftar skema)
+    document.getElementById('openUri').addEventListener('click', () => {
+      // coba redirect ke URI; sebagian browser/OS akan menanyakan app mana yang buka
+      window.location.href = URI;
+      // fallback: tampilkan URI agar user bisa salin jika tidak berhasil
+      setTimeout(()=>{ if (!document.hidden) alert('Jika wallet tidak terbuka, silakan salin URI ini ke wallet Anda:\\n' + URI); }, 800);
+    });
+
+    // isi elemen URI di halaman
+    document.getElementById('uri').innerText = URI;
+    // isi alamat (jaga konsistensi jika diubah)
+    document.getElementById('addr').innerText = ADDRESS;
+  </script>
+</body>
+</html>
